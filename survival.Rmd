@@ -30,7 +30,7 @@ There are all kinds of nuggets in those that make your eyes glaze over early but
 Literally, don't. It won't make any sense to you unless you already know this stuff. In that case, I hope you have something better to read than [worst-r](https://danstich.github.io/worst-r/) this semester.
 
 **Start homework the day it is assigned**<br>
-Not earlier or later. If you start it too early you won't have digested the lecture content. Later in the semester it will be easier. Plus, I am constantly updating [worst-r](https://danstich.github.io/worst-r/) and the course website (like every semester, no matter what, because I like playing with new data!). So, you don't want to start it early and then have me change the assignment before class. Some day I'll become a lazy professor who never changes out their content. Of course, you also don't want to start too late, because you won't stand much of finishing the homework assignments if you do.
+Not earlier or later. If you start it too early you won't have digested the lecture content. Later in the semester it will be easier. Plus, I am constantly updating [worst-r](https://danstich.github.io/worst-r/) and the course website (like every semester, no matter what, because I like playing with new data!). So, you don't want to start it early and then have me change the assignment before class. Some day I'll become a lazy professor who never changes out their content. Of course, you also don't want to start too late, because you won't stand much chance of finishing the homework assignments if you do until you really get comfortable.
 
 **Ask questions**<br>
 It doesn't irritate me, I promise. I have the job I do because I like helping people learn about this stuff. If I didn't like it, I would go be a cave-dwelling coder troll. Sometimes things that are big hurdles for you are things I didn't think about - and it's probably not just you! Ask questions, or I will just blather on forever.
@@ -42,9 +42,9 @@ It's not just allowed, it is encouraged! Just write your own code - that's all I
 Just because we didn't do it in class or the textbook (I mean, it is the Worst Stats Text eveR) that doesn't mean you can't do it for your homework. Go Google it.
 
 **Submit your homework by the due date**<br>
-Regardless of whether you make it all the way through the homework assignment. Half credit is better than no credit. You can't let it happen every week or you won't pass, but the code is not the only mark in your grade-books, it's just the one that scares people the most. The course is designed to help you absorb the occasional missed mark.
+Regardless of whether you make it all the way through the homework assignment. Half credit is better than no credit. You can't let it happen every week or you won't pass, but the code is not the only mark in your grade books, it's just the one that scares people the most. The course is designed to help you absorb the occasional missed mark.
 
 **Reflect on where you started this class each week**<br>
-Each week, look back over your shoulder and think about how terrified you were the first time you tried to use R on your own. Celebrate the small victories like installing the software and getting your first code to run. Seriously. Most of my colleagues have never even gotten that far. In a couple of weeks, you will know how to write more code and do more statistics than most of your professors. But it hurts like hell getting there.
+Each week, look back over your shoulder and think about how terrified you were the first time you tried to use R on your own or how much you struggled with trivial feats early on. Celebrate the small victories like installing the software and getting your first code to run. Seriously. Most of my colleagues have never even gotten that far. In a couple of weeks, you will know how to write more code and do more statistics than most of your professors. But it hurts like hell getting there.
 
 <br>
