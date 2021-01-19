@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>hw10.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<!DOCTYPE html>
+<head>
+<!-- Favicon for various operating systems -->
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+<!-- <link rel="manifest" href="./favicon/site.webmanifest"> -->
+<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#603cba">
+<link rel="shortcut icon" href="./favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#603cba">
+<meta name="msapplication-config" content="./favicon/browserconfig.xml">
+<meta name="theme-color" content="#382121">
+</head>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">BIOL678</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="software.html">Getting started</a>
+</li>
+<li>
+  <a href="content.html">Course content</a>
+</li>
+<li>
+  <a href="survival.html">Survival guide</a>
+</li>
+<li>
+  <a href="resources.html">Additional resources</a>
+</li>
+<li>
+  <a href="contact.html">Contact</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://danstich.github.io/worst-r/">worst-r</a>
+</li>
+<li>
+  <a href="https://github.com/danStich">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+
+.column {
+    float: left;
+    padding: 15px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.content {
+    width: 75%;
+}
+
+</style>
+<div id="generalized-linear-mixed-models" class="section level1">
+<h1>Generalized linear mixed models</h1>
+<p><img src="images/matrixSmolt.jpg" alt=""></p>
+<h2 id="multi">
+Introduction
+</h2>
+<p>This week we extended the analytical framework that we have been working with to include both fixed and random effects. We have discussed why we might want to use it and how to interpret the results of these tools. The purpose of this lab is to get you comfortable using GLMM with real data.</p>
+<p>By the end of this lab, you should 1) understand why we use mixed effects models, 2) be comfortable specifying general linear mixed models in R and applying the tool to analyze data from start to finish, and 3) be able to diagnose and interpret the results of these models.</p>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<div id="linear-mixed-models-lmm--a-special-case-of-glmm" class="section level3">
+<h3>Linear mixed models (LMM- a special case of GLMM)</h3>
+<p>We have looked at the GLMM initially this week because of it’s utility for handling the combination of fixed and random effects for the types of data that we commonly encounter in biology and ecology. But, as a special case of the GLMM, we could look at using a Gaussian (normal) error distribution or any suite of transformed distributions for our models, too! The advantage of doing this is that the models tend to be fit a little more easily (i.e. reliably) under the arguably unstable engines and ever-changing optimization algorithms for this model class. This special case of the GLMM goes by a variety of names depending on uses. For example, we might refer to them as ‘repeated measures’ ANOVA, ‘nested’ or ‘factorial’ ANOVA, or ‘linear mixed models’ (LMM).</p>
+<p>You’ll want the <code>tidyverse</code> loaded as always, and we’ll also be playing with the new functions we learned about from <code>lme4</code> and <code>merTools</code>. You can go ahead and load those when you are ready to get started.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(lme4)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(merTools)</span></code></pre></div>
+<p>Let’s take a look at a new data set for this example. Read in the data file called <code>est.mvmt.txt</code> from the class data sets.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>est_mvmt &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/est.mvmt.txt&quot;</span>)</span></code></pre></div>
+<p>These data are from endangered Atlantic salmon <em>Salmo salar</em> smolts. The response in the data is <code>Rate</code> and is a measure of the movement rate of individual fish (in body lengths per second). Federal fisheries managers were interested in how this movement rate was affected by seasonal changes in environmental factors, but also characteristics of the individual fish (as rearing history [hatchery or wild], length and mass, gill NKA activity) and factors related to the conservation hatchery practices (many of these same characteristics, but also release date and release site in the river[distance from ocean]). To understand if there were non-linear, or “optimal” relationships between movement rate and seasonal variables like photoperiod (<code>Ph</code>), movement date (<code>MovDate</code>) and river kilometer (<code>RKM</code>), we also investigated <strong>quadratic</strong> or <strong>polynomial</strong> terms that allow for a parabolic relationship between each of these variables and the movement <code>Rate</code> of individual fish.</p>
+<p>A brief description of the data follows:</p>
+<pre><code>  TagID: individual fish ID
+  FL: forklength of fish
+  Mass: mass of individual fish
+  ATP: gill Na+,K+-ATPase activity
+  RelSite: release site
+  RelDate: release date (ordinal)
+  Org: rearing history (hatchery or wild)
+  Year: year of the study
+  SW: indicator for salt water for each relocation
+  RelKM: river kilometer of release site
+  Dams: the number of dams passed by individual fish
+  RKM_Loc: river kilometer of detections following release
+  Rate: movement rate of individual fish in various reaches
+  MovDate: the date on which movement occurred
+  k: fish condition (a measure of rotundity or plumpness)
+  MovDate2: a quadratic term for movement date
+  RKM: the river kilometer of relocation
+  RKM2: a quadratic term for each relocation
+  Dis: mean river discharge over movement period
+  Phs: photoperiod (daylength) for the movement period
+  Ph2s: a quadratic term for daylength for movement period</code></pre>
+<p>All of the potential explanatory variables (<strong>covariates</strong>) for this data set were standardized (centered and scaled) prior to analysis in an effort to facilitate comparison between effects of various explanatory variables. The full citation for the study can be found <a href="http://www.bioone.org/doi/pdf/10.1080/19425120.2015.1007185">here</a></p>
+<p>Your charge will be to fit a series of models and analyze them within the context of a linear mixed effects model.</p>
+<p>First, build a candidate model set based on your own interests or the model selection table in the paper provided. There are a lot of covariates in this data set, and many of them are highly collinear, so you will need to put some thought into how you choose your variables. You will need to make a minimum of 5 models and a maximum of 10.</p>
+<p>I will place a few stipulations on this:</p>
+<ol style="list-style-type: decimal">
+<li><p>You need to account for repeat measurements of movement rates within years of this study. The original analysis used individual random effects (<code>TagID</code>) but the computational machinery has changed in <code>lmer()</code> and that now throws warnings about singularity that freak people out. This occurs because the actual standard deviation on our random effect of individual is very near to zero. This has caused a lot of huff in recent years as it is a change from the initial routines used by <code>lmer()</code>. Note that these warnings were not produced in any of the previous versions of this data analysis (yikes!). In this specific case, the warning can be safely ignored because we expect this, but it may be a sign that we don’t actually need the random effect (we’ll keep it in all models). In any case, we will work with <code>Year</code> as a random effect in all of these models.</p></li>
+<li><p>Use the log of movement rate as the response. Movement rate is constrained to be greater than zero. While we are fairly robust to assumptions of normality within this framework, we do not want to allow negative predictions of movement rate.</p></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Create a separate variable for log movement rate</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>est_mvmt<span class="op">$</span>logRate &lt;-<span class="st"> </span><span class="kw">log</span>(est_mvmt<span class="op">$</span>Rate)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>There are a number of second-order polynomials included in the data set. These can be used to investigate non-linear effects of X on Y. For example, we might expect that movement <code>Rate</code> would increase initially with Photoperiod (daylight) and then decrease as daylight continues to increase during the summer because there is an optimal window for timing in this migration. If you choose to include one of these relationships in your model, you must include both the first and the second order term. For example, if you would like to investigate non-linear seasonal changes in movement <code>Rate</code> that are dependent upon photoperiod <code>PhS</code>, then you must include both <code>PhS</code> and <code>Ph2S</code> in your model, like this:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>photo_mod &lt;-<span class="st"> </span><span class="kw">lmer</span>(logRate <span class="op">~</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Year) <span class="op">+</span><span class="st"> </span>PhS <span class="op">+</span><span class="st"> </span>Ph2S, <span class="dt">data =</span> est_mvmt)</span></code></pre></div>
+<p>Make a list object of at least 5 models like this that you chose to test so you can do model selection later. If you have forgotten how to do this, see the lecture notes.</p>
+<p>Here is one more example of ONE FORM of the syntax we might use to fit a linear mixed model in the “lme4” package using <code>lme4::lmer()</code>. PLEASE NOTE: you do not need to build this model for the exercise. It just happened to be the first in the list of candidate models from the R script that we used to analyze these data for the real study.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>move_mod_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  logRate <span class="op">~</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Year) <span class="op">+</span><span class="st"> </span>RKM <span class="op">+</span><span class="st"> </span>RKM2 <span class="op">+</span><span class="st"> </span>Dis <span class="op">+</span><span class="st"> </span>PhS <span class="op">+</span><span class="st"> </span>Ph2S,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="dt">data =</span> est_mvmt</span>
+<span id="cb6-4"><a href="#cb6-4"></a>)</span></code></pre></div>
+<p><strong>Question 1.</strong> Why did you choose to test this model set? What factors did you consider in their development and what hypotheses do these represent?</p>
+<p>Next we will use an information-theoretic approach to model selection based on Akaike’s information criterion. You can use the <code>aictab</code> function in the <code>AICcmodavg</code> package using the same methods we learned in <a href="https://danstich.github.io/worst-r/11-5-a-priori.html#tools-for-a-priori-model-selection">Chapter 11</a>.</p>
+<p><strong>Question 2.</strong> According to your model selection statistics, which of your models was the top model? Is there clear evidence for a <em>best</em> model (use <span class="math inline">\(\Delta\)</span>AIC and w<sub>i</sub> to decide)?</p>
+<p><strong>Question 3.</strong> Were there any variables that were clearly more important than others in your candidate set?</p>
+<p>Before you go any further (i.e., before you look at any of the model summaries) have a look at the model diagnostics for your best model.</p>
+<p>Does the distribution appear to be (more or less) normal with a mean of zero with respect to the fitted values?</p>
+<p>Now go ahead and look at the summary of your best model.</p>
+<p><strong>Food for thought</strong>: What factors were included in your best model? Are they all considered significant at <span class="math inline">\(alpha\)</span> = 0.05? You could use the <code>Anova()</code> function from the <code>car</code> library to find out. This is what it would look like for the example model that I made above.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">Anova</span>(photo_mod, <span class="dt">Type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
+## 
+## Response: logRate
+##       Chisq Df Pr(&gt;Chisq)
+## PhS  1.0354  1     0.3089
+## Ph2S 0.4842  1     0.4865</code></pre>
+<p><strong>Question 4.</strong> Comparing the magnitude of the (<em>standardized</em>) regression coefficients in your summary, which variable included in your best model has the strongest effect on movement rate? Is this supported by your model selection results? <em>Note: we can compare the magnitude of regression coefficients in this case because the variables were all transformed to z-scores for the analysis - something we’ve not discussed in detail</em></p>
+<p>To wrap things up, let’s go ahead and make predictions from our best models following the examples in <a href="https://danstich.github.io/worst-r/14-5-lmm-worked.html#random-intercepts-model">Chapter 14.5</a></p>
+<p>Here is what this would look like for my example model. Notice how similar this is to how we’ve plotted everything else since week 6?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Simulate predictions from the relationship</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># stored in the model fit using our original data</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>log_preds &lt;-<span class="st"> </span><span class="kw">predictInterval</span>(</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="dt">merMod =</span> photo_mod,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">n.sims =</span> <span class="dv">1000</span>,</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="dt">stat =</span> <span class="st">&quot;median&quot;</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="dt">type =</span> <span class="st">&quot;linear.prediction&quot;</span>,</span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="dt">which =</span> <span class="st">&quot;fixed&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="dt">include.resid.var =</span> <span class="ot">TRUE</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>)</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co"># Convert them to the real scale for plotting</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>real_preds &lt;-<span class="st"> </span><span class="kw">apply</span>(log_preds, <span class="dv">2</span>, exp)</span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co"># Combine predictions with the original data</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>mer_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(est_mvmt, real_preds)</span>
+<span id="cb9-17"><a href="#cb9-17"></a></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="kw">ggplot</span>(mer_preds, <span class="kw">aes</span>(<span class="dt">x =</span> PhS, <span class="dt">y =</span> Rate, <span class="dt">color =</span> Year, <span class="dt">fill =</span> Year)) <span class="op">+</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.10</span>) <span class="op">+</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">color =</span> <span class="ot">NULL</span>), <span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fit), <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.50</span>) <span class="op">+</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Year) <span class="op">+</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Standardized Photoperiod&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Rate&quot;</span>)</span></code></pre></div>
+<p><img src="hw10_files/figure-html/unnamed-chunk-9-1.png" width="672" /> Wow, mine looks like garbage because this predictor was not significant all on its own. Perhaps yours will look better?</p>
+<p>If you are having trouble with the <code>merTools</code> package (common on older versions of OS-X) you can also make predictions using the built-in <code>predict()</code> function as we’ve done in the past, you just won’t have sweet (garbage?) prediction intervals.</p>
+<p>Here is how:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Make predictions from the model:</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>log_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">fit =</span> <span class="kw">predict</span>(photo_mod, <span class="dt">type=</span><span class="st">&quot;link&quot;</span>))</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Convert them to the real scale for plotting</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>real_preds &lt;-<span class="st"> </span><span class="kw">apply</span>(log_preds, <span class="dv">2</span>, exp)</span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co"># Combine predictions with the original data</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>est_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(est_mvmt, real_preds)</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="kw">ggplot</span>(est_preds, <span class="kw">aes</span>(<span class="dt">x =</span> PhS, <span class="dt">y =</span> Rate, <span class="dt">color =</span> Year, <span class="dt">fill =</span> Year)) <span class="op">+</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.10</span>) <span class="op">+</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="st">  </span><span class="co"># geom_ribbon(aes(ymin = lwr, ymax = upr, color = NULL), alpha = .3) +</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fit), <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.50</span>) <span class="op">+</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Year) <span class="op">+</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Standardized Photoperiod&quot;</span>) <span class="op">+</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Rate&quot;</span>)</span></code></pre></div>
+<p><img src="hw10_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><strong>Question 5.</strong> Use the <code>summary()</code> of your best model, in addition to the predictive plots you have made to report statistical significance of your explanatory variables and the direction of their relationships to <code>logRate</code>.</p>
+</div>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<br>
+
+<hr>
+
+<p style="color:gray">This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International License.</a></p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

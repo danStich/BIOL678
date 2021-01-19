@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>content.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<!DOCTYPE html>
+<head>
+<!-- Favicon for various operating systems -->
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+<!-- <link rel="manifest" href="./favicon/site.webmanifest"> -->
+<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#603cba">
+<link rel="shortcut icon" href="./favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#603cba">
+<meta name="msapplication-config" content="./favicon/browserconfig.xml">
+<meta name="theme-color" content="#382121">
+</head>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">BIOL678</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="software.html">Getting started</a>
+</li>
+<li>
+  <a href="content.html">Course content</a>
+</li>
+<li>
+  <a href="survival.html">Survival guide</a>
+</li>
+<li>
+  <a href="resources.html">Additional resources</a>
+</li>
+<li>
+  <a href="contact.html">Contact</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://danstich.github.io/worst-r/">worst-r</a>
+</li>
+<li>
+  <a href="https://github.com/danStich">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+
+.column {
+    float: left;
+    padding: 15px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.content {
+    width: 75%;
+}
+
+</style>
+<div id="course-content-biol-678" class="section level1">
+<h1>Course content (BIOL 678)</h1>
+<hr />
+<p>Please use the links below to access the content for each topic (week). Please review the <a href="rubric.html">rubric</a> for submitting programming assignments through Blackboard each week prior to submission.</p>
+<p>The lecture tutorials provided below are linked directly to the online version of <a href="https://danstich.github.io/worst-r/" target="blank">The Worst Stats Text eveR</a>, the text book used for the class. The links below will not open in a new tab unless you tell them to. PDF and eBook formats are also available (free).</p>
+<h2 id="multi">
+<strong>Introduction to programming in R</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/1-Chapter1.html">Chapter 1: Introduction to programming in R</a><br> <a href="https://danstich.github.io/worst-r/2-Chapter2.html">Chapter 2: Data Structures</a></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw01_introToR.html"> Introduction to R </a><br></p>
+<h2 id="multi">
+<strong>Data manipulation and visualization</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/3-Chapter3.html">Chapter 3: Working with data</a><br> <a href="https://danstich.github.io/worst-r/4-Chapter4.html">Chapter 4: Plotting and graphics</a><br></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw02.html"> Data manipulation and visualization </a></p>
+<h2 id="multi">
+<strong>Probability and sampling distributions</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/5-sampling-distributions-in-r.html">Chapter 5: Sampling distributions</a><br></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw03.html"> Sampling distributions </a></p>
+<h2 id="multi">
+<strong>Introduction to inferential statistics</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/6-inferential-statistics.html">Chapter 6: Intro to inferential</a><br></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw04.html"> Hypothesis testing </a></p>
+<h2 id="multi">
+<strong>Linear models</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/7-Chapter7.html">Chapter 7: Linear models</a><br> <a href="https://danstich.github.io/worst-r/8-Chapter8.html">Chapter 8: General linear models</a><br></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw05.html"> Linear models </a></p>
+<h2 id="multi">
+<strong>Diagnostics and effect sizes</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/9-Chapter9.html">Chapter 9: Assumptions of linear models</a><br> <a href="https://danstich.github.io/worst-r/10-Chapter10.html">Chapter 10: Communicating effects</a><br></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw06.html"> Diagnostics and effects </a></p>
+<h2 id="multi">
+<strong>Model selection</strong>
+</h2>
+<hr />
+<h3 id="multi">
+Lecture tutorials
+</h3>
+<p><a href="https://danstich.github.io/worst-r/11-Chapter11.html">Chapter 11: Model selection</a><br></p>
+<h3 id="multi">
+Homework exercises
+</h3>
+<p><a href="./hw07.html"> Model selection </a></p>
+<!-- <h2 id = "multi"> **GLM: Logistic regression** </h2> -->
+<!-- ---- -->
+<!-- <h3 id = "multi">Lecture tutorials</h3> -->
+<!-- [Chapter 12: Logistic regression](https://danstich.github.io/worst-r/12-Chapter12.html)<br> -->
+<!-- <h3 id = "multi"> Homework exercises</h3> -->
+<!-- <a href="./hw08.html"> Logistic regression </a> -->
+<!-- <h2 id = "multi"> **GLM: Count models** </h2> -->
+<!-- ---- -->
+<!-- <h3 id = "multi">Lecture tutorials</h3> -->
+<!-- [Chapter 13: Count models](https://danstich.github.io/worst-r/13-Chapter13.html)<br> -->
+<!-- <h3 id = "multi"> Homework exercises</h3> -->
+<!-- <a href="./hw09.html"> Count models </a> -->
+<!-- <h2 id = "multi"> **Generalized linear mixed models** </h2> -->
+<!-- ---- -->
+<!-- <h3 id = "multi">Lecture tutorials</h3> -->
+<!-- [Chapter 14: Linear mixed models](https://danstich.github.io/worst-r/14-Chapter14.html)<br> -->
+<!-- [Chapter 15: Generalized linear mixed models](https://danstich.github.io/worst-r/15-Chapter15.html)<br> -->
+<!-- <h3 id = "multi"> Homework exercises</h3> -->
+<!-- <a href="./hw10.html"> Linear mixed models </a> -->
+<!-- <h2 id = "multi"> **Multivariate statistics** </h2> -->
+<!-- ---- -->
+<!-- <h3 id = "multi">Lecture tutorials</h3> -->
+<!-- <a href="./11_multivariate.html"> Intro to multivariate statistics </a><br> -->
+<!-- <h3 id = "multi"> Homework exercises</h3> -->
+<!-- <a href="./hw11.html"> NMDS </a> -->
+<!-- <h2 id = "multi"> **Classification and regression trees (CART)** </h2> -->
+<!-- ---- -->
+<!-- <h3 id = "multi">Lecture tutorials</h3> -->
+<!-- <a href="./12_cart.html"> Classification trees </a><br> -->
+<!-- <h3 id = "multi"> Homework exercises</h3> -->
+<!-- <a href="./hw12.html"> Regression trees </a> -->
+<p><br></p>
+</div>
+
+<!DOCTYPE html>
+
+<br>
+
+<hr>
+
+<p style="color:gray">This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International License.</a></p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

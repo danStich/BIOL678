@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>survival.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<!DOCTYPE html>
+<head>
+<!-- Favicon for various operating systems -->
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+<!-- <link rel="manifest" href="./favicon/site.webmanifest"> -->
+<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#603cba">
+<link rel="shortcut icon" href="./favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#603cba">
+<meta name="msapplication-config" content="./favicon/browserconfig.xml">
+<meta name="theme-color" content="#382121">
+</head>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">BIOL678</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="software.html">Getting started</a>
+</li>
+<li>
+  <a href="content.html">Course content</a>
+</li>
+<li>
+  <a href="survival.html">Survival guide</a>
+</li>
+<li>
+  <a href="resources.html">Additional resources</a>
+</li>
+<li>
+  <a href="contact.html">Contact</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://danstich.github.io/worst-r/">worst-r</a>
+</li>
+<li>
+  <a href="https://github.com/danStich">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+
+.column {
+    float: left;
+    padding: 15px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.content {
+    width: 75%;
+}
+
+</style>
+<div id="weekly-survival-guide" class="section level1">
+<h1>Weekly survival guide</h1>
+<hr />
+<h3 id="multi">
+<b>How to life???</b>
+</h3>
+<p>Getting started in R is brutal. Period. It is a rite of passage most of us who use it try hard to forget. Once you get over the initial struggle of acquainting yourself with the course website, downloading the software, and then doing some kind of magic with zippers on folders it can be tough to know what to do next.</p>
+<p>In fact, this is as far as many people ever get in learning R. Some probably have multiple versions of R that they’ve never actually learned to use. The purpose of this page is to help make sure that’s not you. Because once you start to learn R and you have a “system” it picks up quick.</p>
+<h3 id="multi">
+<b>Weekly routine</b>
+</h3>
+<p><strong>Start lecture and textbook work on Monday each week</strong><br> Then you can work through text sections gradually. It is easiest to learn R when you do a little every day. You can go on all-night code benders once you get comfortable. If you wait until the night before homework is due to start the lecture material, it is unlikely that you will finish it.</p>
+<p><strong>Make an R script for lecture and text each week</strong><br> To do this, I would make an R script for each chapter or section - whichever you like. You can write or paste code from <a href="https://danstich.github.io/worst-r/">worst-r</a> as you go. You can copy and paste lecture code from worst-r to play along at first. You don’t have to write it out long-hand. The thing I really want you to do with the textbook (lecture) code is play with it to see how things work. Think of it like a nice, safe sandbox that you can play in. And, if you make a mess, just delete the file. Nothing we do in this class will break your computer.</p>
+<p><strong>Read and work along with the text book throughout the week</strong> <br> The only way to really learn R is to read, write, and run R code. I can give you pointers, tell you jokes, and help you debug, but the only way to really learn it is to do it. It gets easier. You’ll never stop getting frustrated, but it gets easier.</p>
+<p><strong>Return to early chapters of the book as needed</strong><br> There are all kinds of nuggets in those that make your eyes glaze over early but are super helpful once you hit your stride.</p>
+<p><strong>Don’t start homework without working through assigned chapters</strong><br> Literally, don’t. It won’t make any sense to you unless you already know this stuff. In that case, I hope you have something better to read than <a href="https://danstich.github.io/worst-r/">worst-r</a> this semester.</p>
+<p><strong>Start homework the day it is assigned</strong><br> Not earlier or later. If you start it too early you won’t have digested the lecture content. Later in the semester it will be easier. Plus, I am constantly updating <a href="https://danstich.github.io/worst-r/">worst-r</a> and the course website (like every semester, no matter what, because I like playing with new data!). So, you don’t want to start it early and then have me change the assignment before class. Some day I’ll become a lazy professor who never changes out their content. Of course, you also don’t want to start too late, because you won’t stand much of finishing the homework assignments if you do.</p>
+<p><strong>Ask questions</strong><br> It doesn’t irritate me, I promise. I have the job I do because I like helping people learn about this stuff. If I didn’t like it, I would go be a cave-dwelling coder troll. Sometimes things that are big hurdles for you are things I didn’t think about - and it’s probably not just you! Ask questions, or I will just blather on forever.</p>
+<p><strong>Work together</strong><br> It’s not just allowed, it is encouraged! Just write your own code - that’s all I ask.</p>
+<p><strong>Get creative</strong><br> Just because we didn’t do it in class or the textbook (I mean, it is the Worst Stats Text eveR) that doesn’t mean you can’t do it for your homework. Go Google it.</p>
+<p><strong>Submit your homework by the due date</strong><br> Regardless of whether you make it all the way through the homework assignment. Half credit is better than no credit. You can’t let it happen every week or you won’t pass, but the code is not the only mark in your grade-books, it’s just the one that scares people the most. The course is designed to help you absorb the occasional missed mark.</p>
+<p><strong>Reflect on where you started this class each week</strong><br> Each week, look back over your shoulder and think about how terrified you were the first time you tried to use R on your own. Celebrate the small victories like installing the software and getting your first code to run. Seriously. Most of my colleagues have never even gotten that far. In a couple of weeks, you will know how to write more code and do more statistics than most of your professors. But it hurts like hell getting there.</p>
+<p><br></p>
+</div>
+
+<!DOCTYPE html>
+
+<br>
+
+<hr>
+
+<p style="color:gray">This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International License.</a></p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

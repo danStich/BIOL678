@@ -1,0 +1,37 @@
+name: "BIOL678"
+output_dir: "."
+navbar:
+  title: "BIOL678"
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: "Getting started"
+    href: software.html
+  - text: "Course content"
+    href: content.html    
+  - text: "Survival guide"
+    href: survival.html       
+  - text: "Additional resources"
+    href: resources.html
+  - text: "Contact"
+    href: contact.html
+  right:
+  - text: "worst-r"
+    href: https://danstich.github.io/worst-r/ 
+  - icon: fa-github
+    href: https://github.com/danStich
+      
+output:
+  html_document:
+    theme: cosmo
+    highlight: tango
+    toc: false
+    smooth_scroll: true
+    fontsize: 12
+    includes:
+      in_header: _header.html
+      after_body: footer.html
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
+    

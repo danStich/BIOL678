@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>hw05.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<!DOCTYPE html>
+<head>
+<!-- Favicon for various operating systems -->
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+<!-- <link rel="manifest" href="./favicon/site.webmanifest"> -->
+<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#603cba">
+<link rel="shortcut icon" href="./favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#603cba">
+<meta name="msapplication-config" content="./favicon/browserconfig.xml">
+<meta name="theme-color" content="#382121">
+</head>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">BIOL678</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="software.html">Getting started</a>
+</li>
+<li>
+  <a href="content.html">Course content</a>
+</li>
+<li>
+  <a href="survival.html">Survival guide</a>
+</li>
+<li>
+  <a href="resources.html">Additional resources</a>
+</li>
+<li>
+  <a href="contact.html">Contact</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://danstich.github.io/worst-r/">worst-r</a>
+</li>
+<li>
+  <a href="https://github.com/danStich">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="linear-models" class="section level1">
+<h1>Linear models</h1>
+<p><img src="images/graphs.png"></p>
+<h2 id="multi">
+Introduction
+</h2>
+<p>The objective of this assignment is to move beyond simple null hypothesis significance tests and get you thinking about how you can approach real-world problems mathematically. To do this, we introduced a class of tools known as linear models in <a href="https://danstich.github.io/worst-r/7-Chapter7.html">Chapter 7</a> and <a href="https://danstich.github.io/worst-r/8-Chapter8.html">Chapter 8</a>. The simplest of these tools are the linear regression model, and the analysis of variance (ANOVA), but we learned that we can also combine them in the general linear model.</p>
+<p>In addition to introducing the concepts of linear models, we also will begin to build your statistical vocabulary and start using the kind of language that you see in peer-reviewed journal articles for framing the analysis in the methods section and reporting the results of statistical tests. We will ease into some of the more common vernacular this week and continue to develop this skill for the rest of the semester.</p>
+<p>By the end of this homework, you should be comfortable running and interpreting parametric linear models (regression, ANOVA, ANCOVA) and be starting to think about how we test and compare multiple hypotheses within this framework.</p>
+<p>We’ll work with the <code>smolt.txt</code> data from the class data this week, and we’ll continue to work with packages from the <code>tidyverse</code>. Go ahead and load both of those before you get started.</p>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<h3 id="multi">
+Analysis of variance (ANOVA)
+</h3>
+<p>We’ll start this week with analysis of variance (ANOVA). ANOVA is an extension of the t-tests we worked with last week. Last week, we tested hypotheses about differences in the mean of some response between two groups. ANOVA let’s us extend that to include cases in which we might want to test for differences in more than two groups. As we will see, this allows for comparisons not only between more than two groups (e.g. through one-way ANOVA), but also allows us to look across multiple grouping factors in a single test (e.g. two-way ANOVA).</p>
+<p>We will use the simple case of the one-way ANOVA to practice our newly acquired skills in n-way ANOVA. Begin by reading in the smolt data from last week. See <a href="https://danstich.github.io/stich/classes/BIOL217/hw04.html">Homework 4</a> for a description of the data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Read in the smolt data</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>smolts &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/smolts.txt&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Look at the first few lines for a sanity check</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">head</span>(smolts)</span></code></pre></div>
+<pre><code>##      ID     stage  fl  mass   nka osmolality      pref max n.switch
+## 1 31B1F     Smolt 216  97.5 6.667        318 0.3638229  83       93
+## 2 31B20     Smolt 184  63.0 4.444        306 0.3922490  47      107
+## 3 31B27  Presmolt 183  61.1 1.429        418 0.3378025  45       80
+## 4 31B29 Postsmolt 204  76.4 3.899        356 0.4551466  76      123
+## 5 31B2A  Presmolt 218 117.0 3.623        419 0.4337464  62      107
+## 6 31B2E Postsmolt 199  70.8 2.151        355 0.4828588  59      100</code></pre>
+<p>Use a one-way ANOVA to investigate differences in <code>nka</code> activity between <code>stage</code> of smolts (<code>Presmolt</code>, <code>Postsmolt</code>, and <code>Smolt</code>).</p>
+<p><strong>Question 1.</strong> State the purpose of the analysis (i.e. to detect the effects of “blank” on “other blank”), and formally state the null hypothesis for this analysis.</p>
+<p><strong>Question 2.</strong> Explain the results of the test in sentence format, being sure to include the test statistic, the numerator and denominator degrees of freedom, and the p-value along with the test that you used. Also report the R<sup>2</sup> value for this model (recall you can get this multiple ways): see <a href="https://danstich.github.io/worst-r/4-Chapter4.html">Chapter 4</a> or <a href="https://danstich.github.io/worst-r/7-Chapter7.html">Chapter 7</a> for examples of how to do this. You should be able to do this in 1-2 sentences. See the ANOVA example for help putting this into words, but give it your own flare.</p>
+<p>Now, use a Tukey HSD test to determine factor-level differences in <code>nka</code> activity between <code>Presmolt</code>, <code>Smolt</code>, and <code>Postsmolt</code>.</p>
+<p><em>Reminder</em>: if you have forgotten how to conduct the Tukey HSD for pairwise comparisons of factor-level means, you can find this in <a href="https://danstich.github.io/worst-r/7-Chapter7.html">Chapter 7</a>.</p>
+<p>See also:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>?TukeyHSD</span></code></pre></div>
+<p><strong>Question 3.</strong> Report the results of the Tukey test, being sure to include mean and sd for each factor level, in addition to p-values for tests of differences between factor levels. Use complete sentences. You can find examples of how to calculate these summary statistics in <a href="https://danstich.github.io/worst-r/3-4-better-data-summaries.html">Chapter 3.4</a></p>
+<p><strong>Question 4.</strong> After you run the test, make a box plot of <code>nka</code> by <code>stage</code> to help visualize the results. <strong>Make it pretty.</strong></p>
+<div id="linear-regression" class="section level3">
+<h3>Linear regression</h3>
+<p>Moving on…Now let’s consider the case for which we have a continuous response variable <em>and</em> a continuous explanatory variable. Linear regression is going to be our tool of choice for this job!</p>
+<p>Remember, to use linear regression in R, we are still going to work with the <code>lm</code> function <strong>because ANOVA and linear regression are the same thing as far as we are concerned</strong>, and they are both <em>linear models</em> of the form: <span class="math inline">\(Y_i = \beta_0 + \beta_i*X_i + \varepsilon_i\)</span> for which we are (for now) assuming that <span class="math inline">\(\varepsilon_i\)</span> is an error term normally distributed with <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^2 = 1\)</span>.</p>
+<p>Let’s look at the relationship between <code>nka</code> activity and plasma osmolality of the fish used in this study. Use the <code>lm</code> function to test the effects of gill nka on plasma osmolality following exposure to salt water.</p>
+<p><strong>Question 5.</strong> State the null hypothesis for the test and report the Type-I error rate (<span class="math inline">\(\alpha\)</span>) in sentence form.</p>
+<p><strong>Question 6.</strong> Is there a significant effect of <code>nka</code> activity on plasma osmolality following exposure to saltwater? Remember, you need to use the <code>summary()</code> function to answer this question. What is the direction of this relationship (positive or negative), and what response in plasma osmolality would you expect to see with increasing <code>nka</code> activity?</p>
+<p><strong>Question 7.</strong> How much of the variability in plasma osmolality does <code>nka</code> activity explain (think R<sup>2</sup>)?</p>
+<p><strong>Question 8.</strong> Plot the predictions from the regression model against the raw data. Remember there are examples of how to do this in <a href="https://danstich.github.io/worst-r/7-2-linear-regression.html">Chapter 7.2</a>. <strong>Make it pretty</strong> (as if I even need to tell you that).</p>
+</div>
+<div id="ancova" class="section level3">
+<h3>ANCOVA</h3>
+<p>Putting it all together now. Let us imagine a world in which we are not only interested in the effects of categorical OR continuous variables on our response, but rather the <em>additive</em> or <em>combined</em> effects of categorical and continuous variables on our response. Now we’re talking about useful stuff! To do this we will use the analysis of covariance (ANCOVA).</p>
+<p>Remember, to use ANCOVA in R, we are still going to work with the <code>lm</code> function <strong>because ANOVA and linear regression and ANCOVA are the same thing here</strong>, and they are all <em>linear models</em> of the form: <span class="math inline">\(Y_i = \beta_0 + \beta_i*X_i + \varepsilon_i\)</span> in which we are (for now) assuming that <span class="math inline">\(\varepsilon_i\)</span> is normally distributed error with <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^2 = 1\)</span>.</p>
+<blockquote>
+<p>Awesome sauce.</p>
+</blockquote>
+<p>With the <code>lm</code> function in R, use ANCOVA to test the main (additive) effects of <code>stage</code> and <code>nka</code> activity on plasma osmolality.</p>
+<p>Now look at the results. <strong>Remember</strong> there are two different methods we need to use to understand the results of the ANCOVA because now we have both groups and continuous explanatory variables. Remember that the <code>summary()</code> function gives us the regression coefficients and an overall R<sup>2</sup> for the model, and the <code>Anova()</code> function will give us the anova table for the model that we can use to determine whether or not <code>stage</code> had a significant effect overall, but we need to specify the argument <code>type = 'III'</code> in the call. In order to use the <code>Anova()</code> function, you will need to install and load the <code>car</code> library:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Install package</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># install.packages(&#39;car&#39;)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># Load it</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">library</span>(car)</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># Check out the Anova function</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>?Anova</span></code></pre></div>
+<p>Sometimes people have problems installing <code>car</code> for one reason or another. <strong>If unable to install <code>car</code>, you can use <code>anova()</code> function from base R for this assignment, but you won’t be able to use <code>type = III</code>.</strong></p>
+<p><strong>Question 9.</strong> What can you conclude about the effects of <code>stage</code> and <code>nka</code> on osmolality? Report this in sentence format as you did above, this time being sure to include the test name, test statistic, p-value, R<sup>2</sup> for the model. This may need a few sentences because we now have to report the results of the ANOVA-style component of the analysis.</p>
+<p><strong>Question 10.</strong> Describe how osmolality varied between stages (reporting mean and sd of osmolality for each stage in addition to differences between levels) as you did for Question 2. Then, describe how osmolality changed with <code>nka</code> activity in addition to stage (be sure to indicate the direction of the relationship using your regression coefficients - you can get this from the <code>summary()</code> of the model).</p>
+</div>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<br>
+
+<hr>
+
+<p style="color:gray">This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International License.</a></p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
