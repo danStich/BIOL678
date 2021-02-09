@@ -122,7 +122,7 @@ which(is.na(...))
 
 <br>
 
-Now that we now why we were getting `NA` values and we know we don't have that many, we can go ahead and tell R to remove those from our data summary `ann`. Let's do it again from the start. This time, we will add `na.rm = TRUE` inside the call to `mean()` in the last step of our data pipeline. I am going to overwrite `ann` with this change to avoid cluttering up my workspace. You can name it something different if you want, but pay attention because you'll still have `ann` in your workspace unless you remove it with the `rm()` function (see [here](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/remove) or type `?rm`).
+Now that we know why we were getting `NA` values and we know we don't have that many, we can go ahead and tell R to remove those from our data summary `ann`. Let's do it again from the start. This time, we will add `na.rm = TRUE` inside the call to `mean()` in the last step of our data pipeline. I am going to overwrite `ann` with this change to avoid cluttering up my workspace. You can name it something different if you want, but pay attention because you'll still have `ann` in your workspace unless you remove it with the `rm()` function (see [here](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/remove) or type `?rm`).
 
 ```{r, message = FALSE}
 ann <- # Front-end object assignment
@@ -198,7 +198,7 @@ Next, we'll modify `hypo$alewife` to replace "present" with "absent" for all yea
 hypo$alewife[hypo$year > 2010] <- "absent"
 ```
 
-**Question 8**. Using your this new data set, calculate the mean `do_mgl` in years were present or absent. There are a number of ways to do this. If you are struggling have a look at the examples using `group_by` and `summarize` from the `dplyr` package in [Chapter 3.4](https://danstich.github.io/worst-r/3-4-better-data-summaries.html)
+**Question 8**. Using this new data set, calculate the mean `do_mgl` in years were present or absent. There are a number of ways to do this. If you are struggling have a look at the examples using `group_by` and `summarize` from the `dplyr` package in [Chapter 3.4](https://danstich.github.io/worst-r/3-4-better-data-summaries.html)
 
 <br>
 
@@ -217,6 +217,6 @@ Next, I want you to modify this box plot using some of the examples shown in [Ch
 
 **Question 9**. Choose at least 5 components of this graph to modify. Examples could include themes, colors, chart titles, axis labels, tick (group) labels, or more. I just want you to dig in and get creative here. Report (in your own words) each of the five changes that you made as the answer and show me the money...I mean the plot. Show me the plot. You don't have to paste the plot in your answer. I'll see it when I run your awesome code. 
 
-**Question 10**. Based on your box plot, and your answer to Question 9, do you think these groups are different? Note, I am still not asking you to do any statistical tests yet. I just want you to think about the kinds of comparisons we will make in a couple weeks.
+**Question 10**. Based on your box plot, and your answer to Question 8, do you think these groups are different? Note, I am still not asking you to do any statistical tests yet. I just want you to think about the kinds of comparisons we will make in a couple weeks.
 
 <br>
