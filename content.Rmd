@@ -34,7 +34,7 @@ The lecture tutorials provided below are linked directly to the online version o
 <h2 id = "multi"> **Probability and sampling distributions** </h2>
 ----
 <h3 id = "multi">Lecture tutorials</h3>
-[Chapter 5: Sampling distributions](https://danstich.github.io/worst-r/5-sampling-distributions-in-r.html)<br>
+[Chapter 5: Sampling distributions](https://danstich.github.io/worst-r/5-Chapter5.html)<br>
 
 <h3 id = "multi"> Homework exercises</h3>
 <a href="./hw03.html"> Sampling distributions </a> 
@@ -43,7 +43,7 @@ The lecture tutorials provided below are linked directly to the online version o
 <h2 id = "multi"> **Introduction to inferential statistics** </h2>
 ----
 <h3 id = "multi">Lecture tutorials</h3>
-[Chapter 6: Intro to inferential](https://danstich.github.io/worst-r/6-inferential-statistics.html)<br>
+[Chapter 6: Intro to inferential](https://danstich.github.io/worst-r/6-Chapter6.html)<br>
 
 <h3 id = "multi"> Homework exercises</h3>
 <a href="./hw04.html"> Hypothesis testing </a> 
