@@ -78,6 +78,17 @@ The lecture tutorials provided below are linked directly to the online version o
 <a href="./hw07.html"> Model selection </a>
 
 
+<h2 id = "multi"> **Introduction to Bayesian Inference** </h2>
+----
+<h3 id = "multi">Lecture tutorials</h3>
+[Chapter 16: Intro to Bayes](https://danstich.github.io/worst-r/16-introduction-to-bayesian-inference.html)<br>
+
+<h3 id = "multi"> Homework exercises</h3>
+Almost ready...
+<!-- <a href="./hw08.html"> Model selection </a> -->
+
+
+
 <!-- <h2 id = "multi"> **GLM: Logistic regression** </h2> -->
 <!-- ---- -->
 <!-- <h3 id = "multi">Lecture tutorials</h3> -->
