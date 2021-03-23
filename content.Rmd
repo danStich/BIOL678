@@ -84,19 +84,16 @@ The lecture tutorials provided below are linked directly to the online version o
 [Chapter 16: Intro to Bayes](https://danstich.github.io/worst-r/16-introduction-to-bayesian-inference.html)<br>
 
 <h3 id = "multi"> Homework exercises</h3>
-Almost ready...
-<!-- <a href="./hw08.html"> Model selection </a> -->
+No homework for this unit.
 
 
+<h2 id = "multi"> **GLM: Logistic regression** </h2>
+----
+<h3 id = "multi">Lecture tutorials</h3>
+[Chapter 12: Introduction to GLM and Logistic regression](https://danstich.github.io/worst-r/12-Chapter12.html)<br>
 
-<!-- <h2 id = "multi"> **GLM: Logistic regression** </h2> -->
-<!-- ---- -->
-<!-- <h3 id = "multi">Lecture tutorials</h3> -->
-<!-- [Chapter 12: Logistic regression](https://danstich.github.io/worst-r/12-Chapter12.html)<br> -->
-
-<!-- <h3 id = "multi"> Homework exercises</h3> -->
+<h3 id = "multi"> Homework exercises </h3>
 <!-- <a href="./hw08.html"> Logistic regression </a> -->
-
 
 <!-- <h2 id = "multi"> **GLM: Count models** </h2> -->
 <!-- ---- -->
