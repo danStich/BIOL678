@@ -92,7 +92,7 @@ No homework for this unit.
 <h3 id = "multi">Lecture tutorials</h3>
 [Chapter 12: Introduction to GLM and Logistic regression](https://danstich.github.io/worst-r/12-Chapter12.html)<br>
 
-[Chapter 17: Bayesian logistic regression regression](https://danstich.github.io/worst-r/17-2-logistic-17.html#data-17)<br>
+[Chapter 17: Bayesian logistic regression regression](https://danstich.github.io/worst-r/17-Chapter17.html)<br>
 
 
 <h3 id = "multi"> Homework exercises </h3>
