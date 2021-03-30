@@ -438,7 +438,7 @@ pre code, pre, code {
 <h2 id="multi">
 Introduction
 </h2>
-<p>This week in lab, we will start to take a closer look at generalized linear models (GLM) through the lens of logisitic regression. This is an family that includes multiple types of analyses depending on the data. For example, we might have binary data (0, 1), binomial data (number of success per some number of trials), or multinomial data (group membership as a response). We will look at the simplest of these cases, binary logistic regression, this week.</p>
+<p>This week in lab, we will start to take a closer look at generalized linear models (GLM) through the lens of logisitic regression using maximum likelihood estimation and Bayesian inference. This is a family that includes multiple types of analyses depending on the data. For example, we might have binary data (0, 1), binomial data (number of success per some number of trials), or multinomial data (group membership as a response). We will look at the simplest of these cases, binary logistic regression, this week in the homework.</p>
 <div id="the-data" class="section level2">
 <h2>The data</h2>
 <p>For our exercise this week, we will work with a data set from a Biological Field Station intern project. The purpose of the project was to test the efficacy of Virkon as a molluscicide for dissinfecting equipment following exposure to zebra mussels <em>Dreissena polymorpha</em>. The study examined the effects of exposure time and concentration on mortality. The response in this data set is <code>dead</code>, a 1/0 variable indicating whether or not a zebra mussel was dead. Usually, with this kind of data, we use a <code>1</code> to indicate survival, but it seemed like too much fun to pass up the opportunity to model mortality as a success. So, for this data set a <code>1</code> indicates dead.</p>
@@ -451,44 +451,32 @@ Introduction
 <p><code>SolnAge</code>: the age of the Virkon solution</p>
 <p><code>Concentration</code>: concentration of Virkon in solution</p>
 <p><code>Time</code>: exposure time</p>
-<p>We will treat concentration as a categorical variable because we only have a few different concentrations, although the argument could be made either way.</p>
+<p>We will treat <code>Concentration</code> as a categorical variable because we only have a few different concentrations, although the argument could be made to treat it as a continuous variable.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>vd<span class="op">$</span>Concentration &lt;-<span class="st"> </span><span class="kw">as.factor</span>(vd<span class="op">$</span>Concentration)</span></code></pre></div>
-<p>The remaining variables are physical and chemical parameters of water measured either in Otsego Lake, or in the Virkon solution. We will come back to these.</p>
+<p>The remaining variables are physical and chemical parameters of water measured either in Otsego Lake, or in the Virkon solution.</p>
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
 <h3 id="multi">
 A worked example
 </h3>
-<p>Let’s start with a simple example to get you moving along. First, we are interested in determining the effects of <code>Concentration</code> and <code>Time</code> on the probability of zebra mussel death (<code>dead</code>) following exposure. If you have been following closely during the past few weeks, you will recognize that with a categorical variable (<code>Concentration</code>) and a continuous variable (<code>Time</code>) we are looking at something that should resemble ANCOVA to you. <strong>But</strong>, our response, <code>dead</code>, can only take on values of 0 and 1, so we know that we need to use a GLM to accommodate this.</p>
+<p>Let’s start with a simple example to get you moving along. We are interested in determining the effects of <code>Concentration</code> and <code>Time</code> on the probability of zebra mussel death (<code>dead</code>) following exposure. If you have been following closely during the past few weeks, you will recognize that with a categorical variable (<code>Concentration</code>) and a continuous variable (<code>Time</code>) we are looking at something that should resemble ANCOVA to you. <strong>But</strong>, our response, <code>dead</code>, can only take on values of 0 and 1, so we know that we need to use a GLM to accommodate this.</p>
 <div id="analysis" class="section level4">
 <h4>Analysis</h4>
-<p>To fit this model we will use the <code>glm</code> function in R, being sure to specify <code>family = 'binomial'</code> in our call:</p>
+<p>Start by fitting a model with additive effects of <code>Concentration</code> and <code>Time</code> on the response <code>dead</code> using either maximum likelihood estimation (<code>glm()</code> function in base R) or Bayesian estimation (<code>stan_glm()</code> function in <code>rstanarm</code>).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Fit the model</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>v.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(dead <span class="op">~</span><span class="st"> </span>Concentration <span class="op">+</span><span class="st"> </span>Time, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">data =</span> vd)</span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a>v_mod &lt;-<span class="st"> </span><span class="kw">glm</span>(dead <span class="op">~</span><span class="st"> </span>Concentration <span class="op">+</span><span class="st"> </span>Time, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">data =</span> vd)</span></code></pre></div>
 <p>Cool, that was easy!</p>
 </div>
 <div id="results" class="section level4">
 <h4>Results</h4>
-<p>Let’s have a look at what the model tells us about our biological questions of interest now. Remember, we need to work with the <code>Anova()</code> function in the <code>car</code> package to use the correct calculations because we have continuous and categorical variables. The only difference is that we are now using an analysis of deviance to summarize significance, which requires the use of a Type-II test instead of a Type-III test.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Load the car library so we can get a</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># meaningful ANOVA table for our model</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">library</span>(car)</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># Print the summary of the model</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">Anova</span>(v.mod, <span class="dt">Type =</span> <span class="st">&quot;II&quot;</span>)</span></code></pre></div>
-<pre><code>## Analysis of Deviance Table (Type II tests)
-## 
-## Response: dead
-##               LR Chisq Df Pr(&gt;Chisq)    
-## Concentration   8885.8  5  &lt; 2.2e-16 ***
-## Time            4501.7  1  &lt; 2.2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Let’s have a look at what the model tells us about our biological questions of interest now.</p>
+<p>If you used <code>glm()</code> to fit the model: Remember, we need to work with the <code>Anova()</code> function in the <code>car</code> package to use the correct calculations because we have continuous and categorical variables. The only difference is that we are now using an analysis of deviance to summarize significance, which requires the use of a Type-II test instead of a Type-III test.</p>
+<p>If you used <code>stan_glm()</code> to fit the model: Remember, Stan won’t give you p-values or significance codes, so if you want to know whether groups are different, you need to do the math here and compare posteriors like we did in <a href="">Chapter 17</a>.</p>
 <p><strong>Question 1.</strong> At the default confidence level (<span class="math inline">\(\alpha\)</span> = 0.05), what can you determine about effects of <code>Concentration</code> and <code>Time</code> with respect to statistical significance? Answer in sentence form, stating the null hypotheses and supporting statistics.</p>
 <p>Just as with all of our other models, we can use the <code>summary()</code> function to get the output from R.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Print the summary of the model</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">summary</span>(v.mod)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Print the summary of the model</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">summary</span>(v_mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = dead ~ Concentration + Time, family = &quot;binomial&quot;, 
@@ -518,60 +506,61 @@ A worked example
 ## 
 ## Number of Fisher Scoring iterations: 8</code></pre>
 <p>The summary of the model gives us the estimated coefficients <strong>on the logit scale</strong>, along with our usual significance codes and an AIC score (now in the default output because we are using maximum likelihood estimation).</p>
-<p>Even though these parameters are on the logit scale, we can still make limited inference about the directionality of relationships as we would with linear models used earlier in the semester.</p>
+<p>Even though these parameters are on the logit scale, we can still make limited inference about the direction of relationships as we would with linear models used earlier in the semester.</p>
 <p><strong>Question 2.</strong> What, if any, is the direction of the relationship between <code>Time</code> and zebra mussel mortality?</p>
 <p><strong>Question 3.</strong> What is the general trend in mortality with the different concentrations listed in the <code>summary</code> of <code>vmod</code>? This may take a little thought, but remember that even as categorical variables, factor levels are listed alphanumerically in the output. If <code>Concentration == 0</code> (“control”) is in the intercept, then the remaining coefficients are directly comparable.</p>
 <!-- Here, we see that the coefficient for `Time` is positive (0.183), meaning that we would predict probability of `dead` to be directly proportional to `Time` (higher probability of death following increased exposure time). This, of course, seems perfectly reasonable. -->
-<p>One thing that you’ll notice is missing from this output is the R<sup>2</sup> value that we have become familiar with during the past several weeks while working with linear models. There is no R<sup>2</sup> value because we are no longer estimating these models using ordinary least squares, but rather maximum likelihood estimation. If we wanted to get an analagous metric of variance explained by our model, we could estimate a <em>pseudo-R<sup>2</sup></em>. There are many of these available depending on the model and nature of our data. The simplest, and arguably most common is the <strong>McFadden R<sup>2</sup></strong>. To estimate this one, we compare the deviance of our model to the deviance of an intercept-only (i.e. “null”) model using the output from the <code>summary</code> function above:</p>
+<p>One thing that you’ll notice is missing from this output is the R<sup>2</sup> value that we have become familiar with during the past several weeks while working with linear models. There is no R<sup>2</sup> value because we are no longer estimating these models using ordinary least squares, but rather maximum likelihood estimation or Bayesian inference.</p>
+<p>Under Bayesian inference in the <code>rstanarm</code> package, we can just use the <code>bayes_R2()</code> function to get this.</p>
+<p>If we wanted to get an analagous metric of variance explained by our model for the MLE fit using <code>glm()</code> output, we could estimate a <em>pseudo-R<sup>2</sup></em>. There are many of these available depending on the model and nature of our data. The simplest, and arguably most common is the <strong>McFadden R<sup>2</sup></strong>. To estimate this one, we compare the deviance of our model to the deviance of an intercept-only (i.e. “null”) model using the output from the <code>summary</code> function above:</p>
 <p><span class="math display">\[McFadden R^2 = 1 - \frac{Deviance_{residual}}{Deviance_{null}}\]</span></p>
-<p>In R, the residual deviance is stored in <code>v.mod$deviance</code> and the null deviance is stored in <code>v.mod$null.deviance</code>. So,</p>
+<p>In R, the residual deviance is stored in <code>v_mod$deviance</code> and the null deviance is stored in <code>v_mod$null.deviance</code>.</p>
 <!-- Here, we can see that the model only explains about 68% of the variation in the response of interest: -->
-<p><span class="math display">\[R^2 = 1 - \frac{4989.599}{1.5731041\times 10^{4}} = ?\]</span></p>
 <p><strong>Question 4.</strong> How much of the variation in zebra mussel mortality is explained by the additive effects of <code>Concentration</code> and <code>Time</code>?</p>
 <p>Now that we have a feel for just how much variability this model explains, the next step in reporting our results here is to extract some information about how <code>dead</code> changes with <code>Time</code> beyond simply stating that it was either “inversely” or “proportionally” related to <code>Time</code>. We will include <code>Concentration</code> in our predictions to account for changes between doses.</p>
-<p>Recall that we can make predictions from our model either by hand or by using the <code>predict</code> function in R. <strong>Note</strong> that if we use the <code>predict</code> function for <code>glm</code> objects in R, we no longer have the ability to set the <code>interval</code> argument as we did for objects resulting from the <code>lm()</code> function (well, we can- it will just be ignored). But, we can get standard error estimates if we make predictions on the link scale. Therefore, if we want confidence intervals on our predictions, we will need to do it by hand (well, in the computer).</p>
+<p>Recall that we can make predictions from our model either by hand or by using the <code>predict</code> function in R. <strong>Note</strong> that if we use the <code>predict()</code> function for <code>glm</code> or <code>stan_glm</code> objects in R, we no longer have the ability to set the <code>interval</code> argument as we did for objects resulting from the <code>lm()</code> function (well, we can - it will just be ignored). But, we can get standard error estimates if we make predictions on the link scale and specify <code>se.fit = TRUE</code>. Therefore, if we want confidence intervals on our predictions, we will need to do it by hand (well, in the computer).</p>
 <p>Start by making some predictions. Recall from that this gets a little more complicated when we have multiple explanatory variables. The <code>predict</code> function requires a <code>data.frame</code> with <code>names</code> that match the <code>names</code> of explanatory variables from our original data set, <code>vd</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Calculate mean predicted value and SE for the predictions</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># on the link scale</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>logit_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="kw">predict</span>(v.mod, <span class="dt">type =</span> <span class="st">&quot;link&quot;</span>, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>) )</span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># Now get lower and upper CIs</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>logit_preds<span class="op">$</span>lwr &lt;-<span class="st"> </span>logit_preds<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span>logit_preds<span class="op">$</span>se.fit <span class="op">*</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.025</span>)</span>
-<span id="cb8-7"><a href="#cb8-7"></a>logit_preds<span class="op">$</span>upr &lt;-<span class="st"> </span>logit_preds<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span>logit_preds<span class="op">$</span>se.fit <span class="op">*</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)</span></code></pre></div>
-<p>Now, we need to define a function to invert the logit link function if we want to get our predictions back on the probability scale (and we do).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>invlogit &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="kw">exp</span>(x) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(x))</span>
-<span id="cb9-3"><a href="#cb9-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Calculate mean predicted value and SE for the predictions</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># on the link scale</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>logit_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="kw">predict</span>(v_mod, <span class="dt">type =</span> <span class="st">&quot;link&quot;</span>, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>) )</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># Now get lower and upper CIs</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>logit_preds<span class="op">$</span>lwr &lt;-<span class="st"> </span>logit_preds<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span>logit_preds<span class="op">$</span>se.fit <span class="op">*</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.025</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>logit_preds<span class="op">$</span>upr &lt;-<span class="st"> </span>logit_preds<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span>logit_preds<span class="op">$</span>se.fit <span class="op">*</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)</span></code></pre></div>
+<p>Now, we need to define a function to invert the logit link function if we want to get our predictions back on the probability scale (and we do). If you fit this model using <code>rstanarm</code> you can use the <code>invlogit()</code> function that ships with it.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>invlogit &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="kw">exp</span>(x) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(x))</span>
+<span id="cb7-3"><a href="#cb7-3"></a>}</span></code></pre></div>
 <p>Now we can convert our predictions to the probability scale. Here, we loop over columns 1, 3, and 4 of our <code>preds</code> dataframe using the <code>apply</code> function because the second column is just the standard errors for our predicted fit at each point. This gives us mean and 95% CI on the probability scale.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Convert the predictions to the probability scale</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>real_preds &lt;-<span class="st"> </span><span class="kw">apply</span>(logit_preds, <span class="dv">2</span>, invlogit)</span>
-<span id="cb10-3"><a href="#cb10-3"></a></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Add our predictions back to the original data</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>vd_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(vd, real_preds)</span></code></pre></div>
-<p>Finally, let’s plot our predictions. Note that here we will plot our raw data as the proportion of zebra mussels dead at a given time and concentration by trial (date).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co"># Summarize proportion dead at time by concentration</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># Use dates so we can show reps</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>sum_points &lt;-<span class="st"> </span>vd_preds <span class="op">%&gt;%</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="kw">group_by</span>(Concentration, Time, Date) <span class="op">%&gt;%</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">props =</span> <span class="kw">sum</span>(dead)<span class="op">/</span><span class="kw">length</span>(dead))</span>
-<span id="cb11-8"><a href="#cb11-8"></a></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co"># Plot the predictions</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="kw">ggplot</span>(vd_preds, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> fit)) <span class="op">+</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(</span>
-<span id="cb11-12"><a href="#cb11-12"></a>    <span class="kw">aes</span>(<span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> Concentration), <span class="dt">alpha =</span> <span class="fl">0.25</span>) <span class="op">+</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Concentration)) <span class="op">+</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a><span class="st">  </span><span class="kw">geom_jitter</span>(</span>
-<span id="cb11-15"><a href="#cb11-15"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> props, <span class="dt">color =</span> Concentration), <span class="dt">data =</span> sum_points,</span>
-<span id="cb11-16"><a href="#cb11-16"></a>    <span class="dt">width =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb11-17"><a href="#cb11-17"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Hours&quot;</span>) <span class="op">+</span></span>
-<span id="cb11-18"><a href="#cb11-18"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Probability of mortality&quot;</span>) <span class="op">+</span></span>
-<span id="cb11-19"><a href="#cb11-19"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb11-20"><a href="#cb11-20"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
-<p><img src="hw08_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>Using either the graph or the estimates in the <code>fit</code> column of <code>preds</code>, we can estimate about how much <code>dead</code> changes across the range of <code>Time</code> observed. We can report this by <code>Time</code> to convey more information.</p>
-<p><strong>Question 5.</strong> Use the graph you have created, along with the model results to describe how zebra mussel mortality changed with <code>Concentration</code> and <code>Time</code>. Be sure to report the relevant test statistics along with your answer.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Convert the predictions to the probability scale</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>real_preds &lt;-<span class="st"> </span><span class="kw">apply</span>(logit_preds, <span class="dv">2</span>, invlogit)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Add our predictions back to the original data</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>vd_preds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(vd, real_preds)</span></code></pre></div>
+<p>Finally, let’s plot our predictions. Note that here we will plot our raw data as the proportion of zebra mussels dead at a given time and concentration by trial (date). Here is my graph:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Summarize proportion dead at time by concentration</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># Use dates so we can show reps</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>sum_points &lt;-<span class="st"> </span>vd_preds <span class="op">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">group_by</span>(Concentration, Time, Date) <span class="op">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">props =</span> <span class="kw">sum</span>(dead)<span class="op">/</span><span class="kw">length</span>(dead))</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co"># Plot the predictions</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="kw">ggplot</span>(vd_preds, <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> fit)) <span class="op">+</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="kw">aes</span>(<span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> Concentration), <span class="dt">alpha =</span> <span class="fl">0.25</span>) <span class="op">+</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Concentration)) <span class="op">+</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="st">  </span><span class="kw">geom_jitter</span>(</span>
+<span id="cb9-15"><a href="#cb9-15"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> Time, <span class="dt">y =</span> props, <span class="dt">color =</span> Concentration), <span class="dt">data =</span> sum_points,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>    <span class="dt">width =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Hours&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Probability of mortality&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
+<p><img src="hw08_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Using either the graph or the estimates in the <code>fit</code> column of <code>preds</code>, we can estimate about how much <code>dead</code> changes across the range of <code>Time</code> observed. We can report this by <code>Concentration</code> to convey more information.</p>
+<p><strong>Question 5.</strong> Use the graph you have created, along with the model results to describe how zebra mussel mortality changed with <code>Concentration</code> and <code>Time</code> in paragraph form. Be sure to report the relevant test statistics along with your answer. This requires you to put together the info from each of the previous questions.</p>
 </div>
 </div>
 </div>

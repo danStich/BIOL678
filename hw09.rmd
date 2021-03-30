@@ -148,7 +148,6 @@ axis(1, labels = NULL)
 par(mfrow = c(1, 1))
 ```
 
-
 It's pretty obvious here that no matter which way we slice it, these are decidedly *not* coming from a Poisson distribution. So, what do we do? This is GLM! We just need to use a different error distribution. From our histogram, it should be clear that we are now working with a negative binomial error structure.
 
 Start by fitting a negative binomial regression model to the data that tests the effect of `region` (x) on `number` (y). This one is essentially an ANOVA model, but with counts and a different sampling distribution that we can fit with `glm()`!
