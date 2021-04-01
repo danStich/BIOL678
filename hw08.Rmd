@@ -59,7 +59,7 @@ Let's have a look at what the model tells us about our biological questions of i
 
 If you used `glm()` to fit the model: Remember, we need to work with the `Anova()` function in the `car` package to use the correct calculations because we have continuous and categorical variables. The only difference is that we are now using an analysis of deviance to summarize significance, which requires the use of a Type-II test instead of a Type-III test.
 
-If you used `stan_glm()` to fit the model: Remember, Stan won't give you p-values or significance codes, so if you want to know whether groups are different, you need to do the math here and compare posteriors like we did in [Chapter 17]().
+If you used `stan_glm()` to fit the model: Remember, Stan won't give you p-values or significance codes, so if you want to know whether groups are different, you need to do the math here and compare posteriors like we did in [Chapter 17.2](https://danstich.github.io/worst-r/17-2-logistic-17.html#interpretting-17).
 
 
 **Question 1.** At the default confidence level ($\alpha$ = 0.05), what can you determine about effects of `Concentration` and `Time` with respect to statistical significance? Answer in sentence form, stating the null hypotheses and supporting statistics.
