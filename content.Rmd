@@ -98,12 +98,15 @@ No homework for this unit.
 <h3 id = "multi"> Homework exercises </h3>
 <a href="./hw08.html"> Logistic regression </a>
 
-<!-- <h2 id = "multi"> **GLM: Count models** </h2> -->
-<!-- ---- -->
-<!-- <h3 id = "multi">Lecture tutorials</h3> -->
-<!-- [Chapter 13: Count models](https://danstich.github.io/worst-r/13-Chapter13.html)<br> -->
+<h2 id = "multi"> **GLM: Count models** </h2>
+----
+<h3 id = "multi">Lecture tutorials</h3>
+[Chapter 13: Count models](https://danstich.github.io/worst-r/13-Chapter13.html)<br>
+[Chapter 18: Bayesian count models](https://danstich.github.io/worst-r/18-Chapter18.html)<br>
 
-<!-- <h3 id = "multi"> Homework exercises</h3> -->
+
+<h3 id = "multi"> Homework exercises</h3>
+Coming soon!
 <!-- <a href="./hw09.html"> Count models </a> -->
 
 
