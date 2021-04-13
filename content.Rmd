@@ -106,17 +106,17 @@ No homework for this unit.
 
 
 <h3 id = "multi"> Homework exercises</h3>
+<a href="./hw09.html"> Count models </a>
+
+
+<h2 id = "multi"> **Generalized linear mixed models** </h2>
+----
+<h3 id = "multi">Lecture tutorials</h3>
+[Chapter 14: Linear mixed models](https://danstich.github.io/worst-r/14-Chapter14.html)<br>
+[Chapter 15: Generalized linear mixed models](https://danstich.github.io/worst-r/15-Chapter15.html)<br>
+
+<h3 id = "multi"> Homework exercises</h3>
 Coming soon!
-<!-- <a href="./hw09.html"> Count models </a> -->
-
-
-<!-- <h2 id = "multi"> **Generalized linear mixed models** </h2> -->
-<!-- ---- -->
-<!-- <h3 id = "multi">Lecture tutorials</h3> -->
-<!-- [Chapter 14: Linear mixed models](https://danstich.github.io/worst-r/14-Chapter14.html)<br> -->
-<!-- [Chapter 15: Generalized linear mixed models](https://danstich.github.io/worst-r/15-Chapter15.html)<br> -->
-
-<!-- <h3 id = "multi"> Homework exercises</h3> -->
 <!-- <a href="./hw10.html"> Linear mixed models </a> -->
 
 

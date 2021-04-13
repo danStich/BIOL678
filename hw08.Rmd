@@ -46,13 +46,28 @@ Let's start with a simple example to get you moving along. We are interested in 
  
 #### Analysis
 Start by fitting a model with additive effects of `Concentration` and `Time` on the response `dead` using either maximum likelihood estimation (`glm()` function in base R) or Bayesian estimation (`stan_glm()` function in `rstanarm`).
+
+You could do it like this with the `glm()` function:
+
 ```{r}
 # Fit the model
 v_mod <- glm(dead ~ Concentration + Time, family = "binomial", data = vd)
 ```
 
-Cool, that was easy! 
+Or you could fit it like this in the `rstanarm` package:
 
+```{r, eval = FALSE, echo = TRUE}
+# Library
+library(rstanarm)
+
+v_mod <- stan_glm(dead ~ Concentration + Time,
+                  family = "binomial",
+                  data = vd,
+                  cores = 4
+                  )
+```
+
+Cool, that was easy! 
 
 #### Results
 Let's have a look at what the model tells us about our biological questions of interest now. 
