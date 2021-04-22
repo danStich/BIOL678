@@ -115,13 +115,13 @@ No homework for this unit.
 [Chapter 14: Linear mixed models](https://danstich.github.io/worst-r/14-Chapter14.html)<br>
 [Chapter 15: Generalized linear mixed models](https://danstich.github.io/worst-r/15-Chapter15.html)<br>
 
+<h3 id = "multi">Lecture tutorials (Bayesian)</h3>
 [Chapter 19: Bayesian hierarchical linear models](https://danstich.github.io/worst-r/19-Chapter19.html)<br>
 [Chapter 20: Bayesian hierarchical GLMs](https://danstich.github.io/worst-r/20-Chapter20.html)
 
 
 <h3 id = "multi"> Homework exercises</h3>
-Coming soon!
-<!-- <a href="./hw10.html"> Hierarchical models </a> -->
+<a href="./hw10.html"> Hierarchical models </a>
 
 
 <!-- <h2 id = "multi"> **Multivariate statistics** </h2> -->

@@ -9,21 +9,23 @@
    
 This week we extended the analytical framework that we have been working with to include both fixed and random effects. We have discussed why we might want to use it and how to interpret the results of these tools. The purpose of this lab is to get you comfortable using GLMM with real data.
 
-By the end of this lab, you should 1) understand why we use mixed effects models, 2) be comfortable specifying general linear mixed models in R and applying the tool to analyze data from start to finish, and 3) be able to diagnose and interpret the results of these models.
+By the end of this lab, you should 1) understand why we use mixed effects models, 2) be comfortable specifying generalized linear mixed models in R and applying the tool to analyze data from start to finish, and 3) be able to diagnose and interpret the results of these models.
 
 
 ## Exercises
 
 ### Linear mixed models (LMM- a special case of GLMM)
 
-We have looked at the GLMM initially this week because of it's utility for handling the combination of fixed and random effects for the types of data that we commonly encounter in biology and ecology. But, as a special case of the GLMM, we could look at using a Gaussian (normal) error distribution or any suite of transformed distributions for our models, too! The advantage of doing this is that the models tend to be fit a little more easily (i.e. reliably) under the arguably unstable engines and ever-changing optimization algorithms for this model class. This special case of the GLMM goes by a variety of names depending on  uses. For example, we might refer to them as 'repeated measures' ANOVA, 'nested' or 'factorial' ANOVA, or 'linear mixed models' (LMM).
+We looked at the GLMM initially this week because of it's utility for handling the combination of fixed and random effects for the types of data that we commonly encounter in biology and ecology. But, as a special case of the GLMM, we could look at using a Gaussian (normal) error distribution or any suite of transformed distributions for our models, too! The advantage of doing this is that the models tend to be fit a little more easily (i.e. reliably) under the arguably unstable engines and ever-changing optimization algorithms for this model class. This special case of the GLMM goes by a variety of names depending on  uses. For example, we might refer to them as 'repeated measures' ANOVA, 'nested' or 'factorial' ANOVA, or 'linear mixed models' (LMM).
 
-You'll want the `tidyverse` loaded as always, and we'll also be playing with the new functions we learned about from `lme4` and `merTools`. You can go ahead and load those when you are ready to get started.
+You'll want the `tidyverse` loaded as always. You may use either maximum likelihood estimation or Bayesian estimation to fit the models for this assignment. If you choose to go MLE, you'll need to load `lme4` and `merTools`. If you choose to use Bayesian, you'll need `rstanarm` and `loo` for this assignment. You can go ahead and load these when you are ready to get started. I am going to load them all so I can do it both ways.
 
 ```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(lme4)
 library(merTools)
+library(rstanarm)
+library(loo)
 ```
 
 Let's take a look at a new data set for this example. Read in the data file called `est.mvmt.txt` from the class data sets.
@@ -33,7 +35,7 @@ Let's take a look at a new data set for this example. Read in the data file call
 est_mvmt <- read.csv("data/est.mvmt.txt")
 ```  
 
-These data are from endangered Atlantic salmon *Salmo salar* smolts. The response in the data is `Rate` and is a measure of the movement rate of individual fish (in body lengths per second). Federal fisheries managers were interested in how this movement rate was affected by seasonal changes in environmental factors, but also characteristics of the individual fish (as rearing history [hatchery or wild], length and mass, gill NKA activity) and factors related to the conservation hatchery practices (many of these same characteristics, but also release date and release site in the river[distance from ocean]). To understand if there were non-linear, or "optimal" relationships between movement rate and seasonal variables like photoperiod (`Ph`), movement date (`MovDate`) and river kilometer (`RKM`), we also investigated **quadratic** or **polynomial** terms that allow for a parabolic relationship between each of these variables and the movement `Rate` of individual fish.
+These data are from endangered Atlantic salmon *Salmo salar* smolts. The response in the data is `Rate` and is a measure of the movement rate of individual fish (in body lengths per second). Federal fisheries managers were interested in how this movement rate was affected by seasonal changes in environmental factors, but also characteristics of the individual fish (such as rearing history [hatchery or wild], length and mass, or gill NKA activity) and factors related to the conservation hatchery practices (many of these same characteristics, but also release date and release site in the river[distance from ocean]). To understand if there were non-linear, or "optimizing", relationships between movement rate and seasonal variables like photoperiod (`Ph`), movement date (`MovDate`) and river kilometer (`RKM`), we also investigated **quadratic** or **polynomial** terms that allow for a parabolic relationship between each of these variables and the movement `Rate` of individual fish...kind of like the walleye data from Chapters 15 and 20 in the textbook.
 
 A brief description of the data follows:
 
@@ -63,9 +65,9 @@ A brief description of the data follows:
 
 All of the potential explanatory variables (**covariates**) for this data set were standardized (centered and scaled) prior to analysis in an effort to facilitate comparison between effects of various explanatory variables. The full citation for the study can be found [here](http://www.bioone.org/doi/pdf/10.1080/19425120.2015.1007185)
 
-Your charge will be to fit a series of models and analyze them within the context of a linear mixed effects model.
+Your charge will be to fit a series of models and analyze them within the context of a linear mixed effects model in the estimation framework of your choosing.
  
-First, build a candidate model set based on your own interests or the model selection table in the paper provided. There are a lot of covariates in this data set, and many of them are highly collinear, so you will need to put some thought into how you choose your variables. You will need to make a minimum of 5 models and a maximum of 10.
+First, build a candidate model set based on your own interests or the model selection table in the paper. There are a lot of covariates in this data set, and many of them are highly collinear, so you will need to put some thought into how you choose your variables. You will need to make a minimum of 3 models and a maximum of 5.
 
 I will place a few stipulations on this: 
 
@@ -78,110 +80,52 @@ I will place a few stipulations on this:
 est_mvmt$logRate <- log(est_mvmt$Rate)
 ```
 
-3) There are a number of second-order polynomials included in the data set. These can be used to investigate non-linear effects of X on Y. For example, we might expect that movement `Rate` would increase initially with Photoperiod (daylight) and then decrease as daylight continues to increase during the summer because there is an optimal window for timing in this migration. If you choose to include one of these relationships in your model, you must include both the first and the second order term. For example, if you would like to investigate non-linear seasonal changes in movement `Rate` that are dependent upon photoperiod `PhS`, then you must include both `PhS` and `Ph2S` in your model, like this: 
+3) There are a number of second-order polynomials included in the data set. These can be used to investigate non-linear effects of X on Y. For example, we might expect that movement `Rate` would increase initially with Photoperiod (daylight) and then decrease as daylight continues to increase during the summer because there is an optimal window for timing of this migration due to physiological and environmental changes throughout spring. If you choose to include one of these relationships in your model, you must include both the first- and the second-order term. For example, if you would like to investigate non-linear seasonal changes in movement `Rate` that are dependent upon photoperiod `PhS`, then you must include both `PhS` and `Ph2S` in your model, like this: 
  
 ```{r}
 photo_mod <- lmer(logRate ~ (1 | Year) + PhS + Ph2S, data = est_mvmt)
 ```
 
-Make a list object of at least 5 models like this that you chose to test so you can do model selection later. If you have forgotten how to do this, see the lecture notes.
+or this:
 
-```{r, echo=FALSE, include = FALSE, results='hide'}
-# Load the lme4 library
-library(lme4)
-# Create a candidate model set (this is the set used in the paper)
-Mov.mods <- list()
-Mov.mods[[1]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[2]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[3]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + k + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[4]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + ATP + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[5]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + Org + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[6]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[7]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + k + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[8]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + ATP + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[9]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + Org + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[10]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[11]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + k + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[12]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + ATP + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[13]] <- lmer(log(Rate) ~ (1 | Year) + RKM + RKM2 + Dis + Org + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[14]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[15]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[16]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + k + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[17]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + ATP + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[18]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + Org + SW + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[19]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[20]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + k + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[21]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + ATP + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[22]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + Org + Dams + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[23]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[24]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + k + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[25]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + ATP + RelKM + PhS + Ph2S, data = est_mvmt)
-Mov.mods[[26]] <- lmer(log(Rate) ~ (1 | Year) + RKM + Dis + Org + RelKM + PhS + Ph2S, data = est_mvmt)
-
-# Create a vector of names for the models
-MovNames <- c()
-MovNames[1] <- "RKM + RKM 2 + Dis + PhS + PhS2"
-MovNames[2] <- "RKM + RKM 2 + Dis + SW + PhS + PhS2"
-MovNames[3] <- "RKM + RKM 2 + Dis + k + SW + PhS + PhS2"
-MovNames[4] <- "RKM + RKM 2 + Dis + ATP + SW + PhS + PhS2"
-MovNames[5] <- "RKM + RKM 2 + Dis + Org + SW + PhS + PhS2"
-MovNames[6] <- "RKM + RKM 2 + Dis + Dams + PhS + PhS2"
-MovNames[7] <- "RKM + RKM 2 + Dis + k + Dams + PhS + PhS2"
-MovNames[8] <- "RKM + RKM 2 + Dis + ATP + Dams + PhS + PhS2"
-MovNames[9] <- "RKM + RKM 2 + Dis + Org + Dams + PhS + PhS2"
-MovNames[10] <- "RKM + RKM 2 + Dis + RelKM + PhS + PhS2"
-MovNames[11] <- "RKM + RKM 2 + Dis + k + RelKM + PhS + PhS2"
-MovNames[12] <- "RKM + RKM 2 + Dis + ATP + RelKM + PhS + PhS2"
-MovNames[13] <- "RKM + RKM 2 + Dis + Org + RelKM + PhS + PhS2"
-MovNames[14] <- "RKM + Dis + PhS + PhS2"
-MovNames[15] <- "RKM + Dis + SW + PhS + PhS2"
-MovNames[16] <- "RKM + Dis + k + SW + PhS + PhS2"
-MovNames[17] <- "RKM + Dis + ATP + SW + PhS + PhS2"
-MovNames[18] <- "RKM + Dis + Org + SW + PhS + PhS2"
-MovNames[19] <- "RKM + Dis + Dams + PhS + PhS2"
-MovNames[20] <- "RKM + Dis + k + Dams + PhS + PhS2"
-MovNames[21] <- "RKM + Dis + ATP + Dams + PhS + PhS2"
-MovNames[22] <- "RKM + Dis + Org + Dams + PhS + PhS2"
-MovNames[23] <- "RKM + Dis + RelKM + PhS + PhS2"
-MovNames[24] <- "RKM + Dis + k + RelKM + PhS + PhS2"
-MovNames[25] <- "RKM + Dis + ATP + RelKM + PhS + PhS2"
-MovNames[26] <- "RKM + Dis + Org + RelKM + PhS + PhS2"
+```{r, eval = FALSE}
+photo_mod <- stan_lmer(logRate ~ (1 | Year) + PhS + Ph2S, data = est_mvmt)
 ```
 
-Here is one more example of ONE FORM of the syntax we might use to fit a linear mixed model in the "lme4" package using `lme4::lmer()`. PLEASE NOTE: you do not need to build this model for the exercise. It just happened to be the first in the list of candidate models from the R script that we used to analyze these data for the real study.
-```{r, eval = TRUE, results="hide"}
-move_mod_01 <- lmer(
-  logRate ~ (1 | Year) + RKM + RKM2 + Dis + PhS + Ph2S,
-  data = est_mvmt
-)
-```
-    
-**Question 1.** Why did you choose to test this model set? What factors did you consider in their development and what hypotheses do these represent?
+4) You may only include one explanatory variable other than `Year` in each model for the sake of simplicity. In the case of quadratic variables you may include both the first and second order terms, of course.
 
-Next we will use an information-theoretic approach to model selection based on Akaike's information criterion. You can use the `aictab` function in the `AICcmodavg` package using the same methods we learned in [Chapter 11](https://danstich.github.io/worst-r/11-5-a-priori.html#tools-for-a-priori-model-selection).
+5) One of your models must be the "null" model (ie `logRate ~ 1 + (1 | Year))`.
 
-**Question 2.** According to your model selection statistics, which of your models was the top model? Is there clear evidence for a *best* model (use $\Delta$AIC and w~i~ to decide)? 
+Make at least 3 models like this that you chose to test so you can do model selection later. If you have forgotten how to do this, see the lecture notes.
+
+**Question 1.** Why did you choose to test this model set? What factors did you consider in their development and what hypotheses do they represent?
+
+Next we will use an information-theoretic approach to model selection based on Akaike's information criterion. You can use the `aictab` function in the `AICcmodavg` package using the same methods we learned in [Chapter 11](https://danstich.github.io/worst-r/11-5-a-priori.html#tools-for-a-priori-model-selection) if you chose MLE, otherwise you can use the `loo` package for comparing fitted Bayesian models.
+
+**Question 2.** According to your model selection statistics, which of your models was the top model? Is there clear evidence for a *best* model based on the model selection tool that you used? 
 
 **Question 3.** Were there any variables that were clearly more important than others in your candidate set?
 
-Before you go any further (i.e., before you look at any of the model summaries) have a look at the model diagnostics for your best model.
+Before you go any further (i.e. before you look at any of the model summaries) have a look at the model diagnostics for your best model.
 
-Does the distribution appear to be (more or less) normal with a mean of zero with respect to the fitted values?
+Does the distribution of residuals appear to be (more or less) normal with a mean of zero with respect to the fitted values? (No, this is not a homework question, but you need to do this stuff!)
 
 Now go ahead and look at the summary of your best model.
 
-**Food for thought**: What factors were included in your best model? Are they all considered significant at $alpha$ = 0.05? You could use the `Anova()` function from the `car` library to find out. This is what it would look like for the example model that I made above.
+**Food for thought**: What factors were included in your best model? Are they all considered significant at $alpha$ = 0.05? You could use the `Anova()` function from the `car` library to find out if you used MLE. This is what it would look like for the example model that I made above.
 
 ```{r, warning=FALSE, message=FALSE}
 library(car)
 Anova(photo_mod, Type = "III")
 ```  
 
+Remember that for Bayesian or MLE methods, you can always just look at whether the 95% interval (or 90%, whatever you like) for the coefficient(s) includes zero to assess significance.
+
 **Question 4.** Comparing the magnitude of the (*standardized*) regression coefficients in your summary, which variable included in your best model has the strongest effect on movement rate? Is this supported by your model selection results? *Note: we can compare the magnitude of regression coefficients in this case because the variables were all transformed to z-scores for the analysis - something we've not discussed in detail*
 
 To wrap things up, let's go ahead and make predictions from our best models following the examples in [Chapter 14.5](https://danstich.github.io/worst-r/14-5-lmm-worked.html#random-intercepts-model)
 
-Here is what this would look like for my example model. Notice how similar this is to how we've plotted everything else since week 6?
+Here is what this would look like for my example model fit with `lmer`. Notice how similar this is to how we've plotted everything else since week 6?
 
 ```{r, warning=FALSE, message=FALSE}
 # Simulate predictions from the relationship
@@ -209,6 +153,7 @@ ggplot(mer_preds, aes(x = PhS, y = Rate, color = Year, fill = Year)) +
   xlab("Standardized Photoperiod") +
   ylab("Rate")
 ```
+
 Wow, mine looks like garbage because this predictor was not significant all on its own. Perhaps yours will look better?
 
 If you are having trouble with the `merTools` package (common on older versions of OS-X) you can also make predictions using the built-in `predict()` function as we've done in the past, you just won't have sweet (garbage?) prediction intervals.
