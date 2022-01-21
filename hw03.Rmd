@@ -1,8 +1,8 @@
-```{r, child="./_styles.Rmd"}
+```{r, child="_styles.Rmd"}
 ```
 
 # Sampling distributions  
-<img src="./images/tempsims.png" alt="">
+<img src="images/tempsims.png" alt="">
 
 <h2 id="multi"> Introduction </h2>  
  
@@ -56,6 +56,7 @@ Now let's take a look at another way to do this. This time, instead of handing y
 # the correct directory):
 dbp <- read.csv("data/dbp.txt")
 ``` 
+ 
 
 **Question 2.** Calculate the *mean* and *variance* of this distribution using the method of moments. You can write your own function, or you can use the built-in R functions like `mean()` that we used in <a href="https://danstich.github.io/worst-r/5-6-sample-statistics.html">Chapter 5.6</a> of the textbook. What are the estimated *mean* and *variance* using this method?  
 
@@ -131,10 +132,14 @@ The code above takes 10 random samples from a Poisson distribution with a mean (
 Suppose that we are interested in describing the distribution of the genus _Photinus_ in Upstate New York. We collected as many speciments as we could on 10 different nights at ten field sites. Now we want to know what is the mean and variance of the number of _Photinus_ we caught each night so we can compare these numbers to historical data.
 
 Here are the data:
-```{r}
+```{r, eval=FALSE}
 counts <- read.csv("data/counts.txt")
 ```
-
+ 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+counts <- read.csv("data/counts.txt")
+```
+ 
 <br>
 
 **Question 9.**
@@ -144,10 +149,14 @@ Using the data in the file `counts.txt` (you have to read it in first), estimate
 
 Suppose that the data in question 9 looked more like those contained in this file:  
 
-```{r}
+```{r, eval=FALSE}
 counts2 <- read.csv("data/counts2.txt")
 ```
-
+ 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+counts2 <- read.csv("data/counts2.txt")
+```
+ 
 <br> 
  
 **Question 10.**  

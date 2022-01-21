@@ -1,10 +1,10 @@
 
-```{r child="./_styles.Rmd"}
+```{r child="_styles.Rmd"}
 ```
 
 # Diagnostics and effect sizes  
 
-<img src="./images/watch.jpg" alt="">
+<img src="images/watch.jpg" alt="">
 
 <h2 id="multi"> Introduction </h2>
 
@@ -188,4 +188,4 @@ Once you have the predictions, plot the observed data and add your predictions t
 
 **Question 10.** Now that you've had a chance to look at these things side by side, does the interaction model appear to make more intuitive sense than the main effects model? Is this supported by the amount of variability is explained by each of the models (think R^2^)? 
 
-Wouldn't it be nice to have some kind of really reliable statistic or group of statistical tools that you could use to clearly demonstrate this difference? Tune back in next week for more on this topic.
+Wouldn't it be nice to have some kind of really reliable statistic or group of statistical tool that you could use to clearly demonstrate this difference? Tune back in next week for more on this topic.

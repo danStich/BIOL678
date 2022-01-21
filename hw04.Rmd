@@ -1,9 +1,9 @@
-```{r child="./_styles.Rmd"}
+```{r child="_styles.Rmd"}
 ```
 
 # Inferential statistics
 
-<img src="./images/peppers.jpg" alt="">
+<img src="images/peppers.jpg" alt="">
 
 <h2 id="multi"> Introduction </h2>
 
@@ -33,7 +33,10 @@ Let's read in the data. We'll use the optional argument `stringsAsFactors = FALS
 ```{r}
 # Read in the data from comma-separated text file
 smolts <- read.csv("data/smolts.txt", stringsAsFactors = FALSE)
+```
 
+Have look at it:
+```{r, eval = FALSE}
 # Look at the first few rows of data
 head(smolts)
 

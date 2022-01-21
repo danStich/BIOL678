@@ -1,9 +1,9 @@
-```{r child="./_styles.Rmd"}
+```{r child="_styles.Rmd"}
 ```
 
 # Model selection
 
-<img src = "./images/glass.jpg">
+<img src = "images/glass.jpg">
 
 ## Introduction  
 

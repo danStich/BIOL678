@@ -1,6 +1,6 @@
 # Linear models
 
-<img src="./images/graphs.png">
+<img src="images/graphs.png">
 
 <h2 id="multi"> Introduction </h2>  
 
@@ -23,9 +23,8 @@ We will use the simple case of the one-way ANOVA to practice our newly acquired 
 # Read in the smolt data
 smolts <- read.csv("data/smolts.txt")
 
-# Look at the first few lines for a sanity check
-head(smolts)
 ```
+
 
 Use a one-way ANOVA to investigate differences in `nka` activity between `stage` of smolts (`Presmolt`, `Postsmolt`, and `Smolt`).  
 
