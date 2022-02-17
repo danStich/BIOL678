@@ -12,6 +12,15 @@ By the end of this lab, you should be able to 1) simulate data from a wide varie
 
 ## Exercises
 
+<h3 id="multi"> Packages </h3>
+
+We're going to work with the `dplyr`, `ggplot2`, and `magrittr` packages for this assignment, so you can go ahead and put some code in your homework script to load them both from the library where they were installed on your computer. If you installed them with the `tidyverse`, you can go ahead and load the whole thing. We'll also need the `MASS` package to estimate parameters of some sampling distributions.
+```{r, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(MASS)
+```
+
+
 <h3 id="multi">The normal distribution</h3>
 
 Let's start with the normal distribution to knock the rust off and get ourselves thinking about probability distributions again. Recall that we can simulate data from the normal using something like this: 

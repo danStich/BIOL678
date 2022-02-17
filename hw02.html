@@ -526,7 +526,7 @@ Data import
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>hypo<span class="sc">$</span>alewife <span class="ot">&lt;-</span> <span class="st">&quot;present&quot;</span></span></code></pre></div>
 <p>Next, we’ll modify <code>hypo$alewife</code> to replace “present” with “absent” for all years after 2010!</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hypo<span class="sc">$</span>alewife[hypo<span class="sc">$</span>year <span class="sc">&gt;</span> <span class="dv">2010</span>] <span class="ot">&lt;-</span> <span class="st">&quot;absent&quot;</span></span></code></pre></div>
-<p><strong>Question 8</strong>. Using your this new data set, calculate the mean <code>do_mgl</code> in years were present or absent. There are a number of ways to do this. If you are struggling have a look at the examples using <code>group_by</code> and <code>summarize</code> from the <code>dplyr</code> package in <a href="https://danstich.github.io/worst-r/3-4-better-data-summaries.html">Chapter 3.4</a></p>
+<p><strong>Question 8</strong>. Using this new data set, calculate the mean <code>do_mgl</code> in years when alewife were <code>"present"</code> or <code>"absent"</code>. There are a number of ways to do this. If you are struggling have a look at the examples using <code>group_by</code> and <code>summarize</code> from the <code>dplyr</code> package in <a href="https://danstich.github.io/worst-r/3-4-better-data-summaries.html">Chapter 3.4</a></p>
 <p><br></p>
 </div>
 <div id="make-it-pretty" class="section level3">

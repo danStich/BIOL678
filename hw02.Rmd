@@ -198,7 +198,7 @@ Next, we'll modify `hypo$alewife` to replace "present" with "absent" for all yea
 hypo$alewife[hypo$year > 2010] <- "absent"
 ```
 
-**Question 8**. Using your this new data set, calculate the mean `do_mgl` in years were present or absent. There are a number of ways to do this. If you are struggling have a look at the examples using `group_by` and `summarize` from the `dplyr` package in [Chapter 3.4](https://danstich.github.io/worst-r/3-4-better-data-summaries.html)
+**Question 8**. Using this new data set, calculate the mean `do_mgl` in years when alewife were `"present"` or `"absent"`. There are a number of ways to do this. If you are struggling have a look at the examples using `group_by` and `summarize` from the `dplyr` package in [Chapter 3.4](https://danstich.github.io/worst-r/3-4-better-data-summaries.html)
 
 <br>
 
